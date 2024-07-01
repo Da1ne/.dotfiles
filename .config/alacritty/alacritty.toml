@@ -5,4 +5,4 @@ decorations = "Buttonless"
 
 [font]
 size = 19
-
+normal.family = "FiraCode Nerd Font Mono"
