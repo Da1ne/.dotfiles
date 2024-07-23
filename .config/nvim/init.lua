@@ -909,6 +909,26 @@ require('lazy').setup({
 })
 -- force debug load
 require('dap-python').setup()
+table.insert(require('dap').configurations.python, {
+  name = 'Current File',
+  type = 'debugpy',
+  request = 'launch',
+  program = '${file}',
+  cwd = '${fileDirname}',
+  console = 'integratedTerminal',
+})
+table.insert(require('dap').configurations.python, {
+  name = 'Working Dir',
+  type = 'debugpy',
+  request = 'launch',
+  program = '${file}',
+  cwd = vim.loop.cwd(),
+  env = {
+    PYTHONPATH = vim.loop.cwd(),
+  },
+  console = 'integratedTerminal',
+  justMyCode = true,
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
