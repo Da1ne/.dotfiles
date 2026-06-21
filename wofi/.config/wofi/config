@@ -1,0 +1,11 @@
+width=600
+height=420
+location=center
+prompt=Search
+insensitive=true
+hide_scroll=true
+no_actions=true
+allow_images=true
+image_size=28
+columns=1
+gtk_dark=true

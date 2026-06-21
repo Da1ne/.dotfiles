@@ -1,0 +1,88 @@
+/* ~/.config/waybar/style.css — Tokyo Night */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", FontAwesome, sans-serif;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(26, 27, 38, 0.9);   /* #1a1b26 @ 90% */
+    color: #c0caf5;
+    border: none;
+}
+window#waybar.hidden { opacity: 0.2; }
+
+tooltip {
+    background: #1a1b26;
+    border: 1px solid #7aa2f7;
+    border-radius: 8px;
+}
+tooltip label { color: #c0caf5; }
+
+button {
+    border: none;
+    box-shadow: none;
+}
+
+/* unified spacing, no per-module background */
+#workspaces, #window, #mpd, #pulseaudio, #network,
+#backlight, #battery, #clock, #tray, #custom-power {
+    padding: 0 10px;
+    background: transparent;
+    color: #c0caf5;
+}
+
+/* workspaces */
+#workspaces button {
+    padding: 0 8px;
+    margin: 4px 2px;
+    color: #565f89;
+    background: transparent;
+    border-radius: 6px;
+}
+#workspaces button:hover {
+    color: #c0caf5;
+    background: #292e42;
+    box-shadow: none;
+    text-shadow: none;
+}
+#workspaces button.active,
+#workspaces button.focused {
+    color: #7aa2f7;
+    background: #292e42;
+}
+#workspaces button.urgent {
+    color: #1a1b26;
+    background: #f7768e;
+}
+
+/* window title (centre) */
+#window { color: #a9b1d6; }
+
+/* battery states */
+#battery.charging, #battery.plugged { color: #9ece6a; }
+#battery.warning:not(.charging)     { color: #e0af68; }
+#battery.critical:not(.charging) {
+    color: #f7768e;
+    animation: blink 1s steps(12) infinite alternate;
+}
+@keyframes blink { to { color: #ff9aaa; } }
+
+/* network */
+#network.disconnected { color: #f7768e; }
+
+/* audio */
+#pulseaudio.muted, #pulseaudio.bluetooth-muted { color: #565f89; }
+
+/* mpd */
+#mpd.disconnected, #mpd.stopped { color: #565f89; }
+#mpd.paused { color: #a9b1d6; }
+
+/* tray */
+#tray > .passive { -gtk-icon-effect: dim; }
+#tray > .needs-attention { color: #f7768e; }
+
+/* power button — neutral, reddens on hover */
+#custom-power { padding-right: 14px; }
+#custom-power:hover { color: #f7768e; }
