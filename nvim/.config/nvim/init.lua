@@ -19,6 +19,22 @@ o.clipboard = "unnamedplus"
 o.splitright = true
 o.splitbelow = true
 
+-- Clipboard that works locally AND over SSH.
+-- Locally we let Neovim auto-detect a provider (wl-clipboard on Wayland) — it's
+-- fast and pastes without a terminal round-trip. Over SSH the remote host has no
+-- clipboard, so route the system clipboard through OSC 52 escape sequences, which
+-- the local terminal (kitty) turns into reads/writes of the *local* clipboard.
+-- Requires Neovim >= 0.10, tmux `set-clipboard on`, and kitty allowing clipboard
+-- reads (`clipboard_control ... read-clipboard`) for paste to work.
+if vim.env.SSH_TTY then
+  local osc52 = require("vim.ui.clipboard.osc52")
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = { ["+"] = osc52.copy("+"), ["*"] = osc52.copy("*") },
+    paste = { ["+"] = osc52.paste("+"), ["*"] = osc52.paste("*") },
+  }
+end
+
 -- bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then

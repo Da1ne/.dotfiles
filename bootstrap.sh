@@ -17,10 +17,18 @@ case "${1:-}" in
   *) echo "usage: $(basename "$0") [--gui]" >&2; exit 2 ;;
 esac
 
-if ! command -v stow >/dev/null; then
-  if   command -v pacman >/dev/null; then sudo pacman -S --needed --noconfirm stow
-  elif command -v apt    >/dev/null; then sudo apt-get update && sudo apt-get install -y stow
-  else echo "install GNU stow, then re-run" >&2; exit 1; fi
+pkg_install() {
+  if   command -v pacman >/dev/null; then sudo pacman -S --needed --noconfirm "$@"
+  elif command -v apt    >/dev/null; then sudo apt-get update && sudo apt-get install -y "$@"
+  else echo "install these manually, then re-run: $*" >&2; return 1; fi
+}
+
+command -v stow >/dev/null || pkg_install stow || exit 1
+
+# Wayland clipboard helper — required for nvim copy/paste to reach the system
+# clipboard on the local desktop (over SSH nvim falls back to OSC 52 instead).
+if [ "${1:-}" = "--gui" ] && ! command -v wl-copy >/dev/null; then
+  pkg_install wl-clipboard || echo "  note: install wl-clipboard for local clipboard support" >&2
 fi
 
 backup_conflicts() {
