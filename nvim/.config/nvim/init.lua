@@ -26,7 +26,9 @@ o.splitbelow = true
 -- the local terminal (kitty) turns into reads/writes of the *local* clipboard.
 -- Requires Neovim >= 0.10, tmux `set-clipboard on`, and kitty allowing clipboard
 -- reads (`clipboard_control ... read-clipboard`) for paste to work.
-if vim.env.SSH_TTY then
+-- SSH_TTY isn't in tmux's default update-environment list (SSH_CONNECTION is),
+-- so check both — otherwise OSC 52 silently won't engage inside tmux.
+if vim.env.SSH_TTY or vim.env.SSH_CONNECTION then
   local osc52 = require("vim.ui.clipboard.osc52")
   vim.g.clipboard = {
     name = "OSC 52",
