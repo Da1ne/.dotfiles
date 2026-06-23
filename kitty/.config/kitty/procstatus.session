@@ -1,0 +1,7 @@
+# kitty session for the Hyprland "process status" scratchpad.
+# btop on the left, bandwhich on the right.
+layout splits
+
+launch --title btop btop
+
+launch --title bandwhich --location=vsplit --bias 45 bandwhich

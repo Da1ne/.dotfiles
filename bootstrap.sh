@@ -8,7 +8,7 @@
 set -uo pipefail
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CORE=(nvim tmux bash htop)
+CORE=(nvim tmux bash htop btop)
 GUI=(hypr waybar kitty mako wofi)
 
 case "${1:-}" in

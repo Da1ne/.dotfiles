@@ -10,7 +10,7 @@ in the repo — commit and push to sync.
 ```sh
 git clone https://github.com/Da1ne/.dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-./bootstrap.sh         # core only (headless servers): nvim, tmux, bash, htop
+./bootstrap.sh         # core only (headless servers): nvim, tmux, bash, htop, btop
 ./bootstrap.sh --gui   # core + Wayland/Hyprland desktop (Arch): hypr, waybar, kitty, mako, wofi
 ```
 
